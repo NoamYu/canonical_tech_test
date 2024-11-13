@@ -10,7 +10,7 @@
 
 int main(int argc, char* argv[]) {
     const std::string url = "https://cloud-images.ubuntu.com/releases/streams/v1/com.ubuntu.cloud:released:download.json";
-    SimpleStreamInfo sample_stream(url);
+    const IImageInfoFetcher& sample_stream = SimpleStreamInfo(url);
 
     if (argc < 2) {
         std::cerr << "Usage: app -supported | -LTS | -sha <version_name> <sub_version>" << std::endl;

@@ -1,8 +1,9 @@
 #include <string>
 #include <vector>
 #include <nlohmann/json.hpp>
+#include "image_info_fetcher.h"
 
-class SimpleStreamInfo
+class SimpleStreamInfo : public IImageInfoFetcher
 {
 private:
     nlohmann::json m_simple_stream_data;
