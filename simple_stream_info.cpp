@@ -63,14 +63,14 @@ int compareVersions(const std::string& v1, const std::string& v2)
     return 0; // Versions are equal
 }
 
-bool SimpleStreamInfo::GetShaOfDisk1(const string& version_name, const string& specific_version, string& sha_value) const
+bool SimpleStreamInfo::GetShaOfDisk1(const string& version_name, const string& sub_version, string& sha_value) const
 {
     auto product = m_simple_stream_data["products"].find(version_name);
     if (product == m_simple_stream_data["products"].end())
     {
         return false;
     }
-    auto product_sub_version = (*product)["versions"].find(specific_version);
+    auto product_sub_version = (*product)["versions"].find(sub_version);
     if (product_sub_version == (*product)["versions"].end())
     {
         return false;
