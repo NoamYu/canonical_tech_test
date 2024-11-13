@@ -9,13 +9,13 @@
 
 
 int main(int argc, char* argv[]) {
-    const std::string url = "https://cloud-images.ubuntu.com/releases/streams/v1/com.ubuntu.cloud:released:download.json";
-    const IImageInfoFetcher& sample_stream = SimpleStreamInfo(url);
-
     if (argc < 2) {
         std::cerr << "Usage: app -supported | -LTS | -sha <version_name> <sub_version>" << std::endl;
         return 1;
     }
+
+    const std::string url = "https://cloud-images.ubuntu.com/releases/streams/v1/com.ubuntu.cloud:released:download.json";
+    const IImageInfoFetcher& sample_stream = SimpleStreamInfo(url);
 
     std::string command = argv[1];
 
@@ -42,9 +42,11 @@ int main(int argc, char* argv[]) {
         std::string specific_version = argv[3];
         std::string sha_value;
         
-        sample_stream.GetShaOfDisk1(ubuntu_release_name, specific_version, sha_value);
-        
-        std::cout << "SHA for " << ubuntu_release_name << " version " << specific_version << ": " << sha_value << std::endl;
+        bool found_sha = sample_stream.GetShaOfDisk1(ubuntu_release_name, specific_version, sha_value);
+        if (found_sha)
+            std::cout << "SHA for " << ubuntu_release_name << " version " << specific_version << ": " << sha_value << std::endl;
+        else
+            std::cout << "SHA for " << ubuntu_release_name << " version " << specific_version << ": " << "was not found" << std::endl;
     } 
     else {
         std::cerr << "Invalid command. Use -supported, -LTS, or -sha." << std::endl;
