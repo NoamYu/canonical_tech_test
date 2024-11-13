@@ -58,28 +58,3 @@ bool downloadFile(const std::string& url, const std::string& outputPath) {
         return false;
     }
 }
-
-// Function to download JSON data as a string
-bool downloadJson(const std::string& url, std::string& jsonString) {
-    CURL* curl;
-    CURLcode res;
-    jsonString.clear();
-
-    curl = curl_easy_init();
-    if(curl) {
-        curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
-        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
-        curl_easy_setopt(curl, CURLOPT_WRITEDATA, &jsonString);
-        res = curl_easy_perform(curl);
-
-        if(res != CURLE_OK) {
-            std::cerr << "curl_easy_perform() failed: " << curl_easy_strerror(res) << std::endl;
-            curl_easy_cleanup(curl);
-            return false;
-        }
-
-        curl_easy_cleanup(curl);
-        return true;
-    }
-    return false;
-}
