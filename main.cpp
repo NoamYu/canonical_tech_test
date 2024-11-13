@@ -25,7 +25,9 @@ int main() {
 
     std::string ubuntu_release_name = "com.ubuntu.cloud:server:17.04:amd64";
     std::string specific_version = "20171208";
-    std::cout << sample_stream.GetShaOfDisk1(ubuntu_release_name, specific_version);
+    std::string sha_value;
+    sample_stream.GetShaOfDisk1(ubuntu_release_name, specific_version, sha_value);
+    std::cout << sha_value;
 
     return 0;
 }

@@ -14,5 +14,5 @@ public:
 
     void GetSupportedReleases(std::vector<std::string>& supported_versions) const;
     std::string GetLatestLTSRelease() const;
-    std::string GetShaOfDisk1(const std::string& version_name, const std::string& specific_version) const;
+    bool GetShaOfDisk1(const std::string& version_name, const std::string& specific_version, std::string& sha_value) const;
 };

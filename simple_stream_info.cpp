@@ -63,22 +63,20 @@ int compareVersions(const std::string& v1, const std::string& v2)
     return 0; // Versions are equal
 }
 
-std::string SimpleStreamInfo::GetShaOfDisk1(const std::string& version_name, const std::string& specific_version) const
+bool SimpleStreamInfo::GetShaOfDisk1(const string& version_name, const string& specific_version, string& sha_value) const
 {
-    try
+    auto product = m_simple_stream_data["products"].find(version_name);
+    if (product == m_simple_stream_data["products"].end())
     {
-        auto product_version = m_simple_stream_data["products"].find(version_name);
-        if (product_version == m_simple_stream_data["products"].end())
-        {
-            return "Failed To Find sha for this specific version"; 
-        }
-        return m_simple_stream_data["products"][version_name]["versions"][specific_version]["items"]["disk1.img"]["sha256"];
+        return false;
     }
-    catch(const std::exception& e)
+    auto product_sub_version = (*product)["versions"].find(specific_version);
+    if (product_sub_version == (*product)["versions"].end())
     {
-        std::cerr << e.what() << '\n';
-        return "Failed To Find sha for this specific version";
+        return false;
     }
+    sha_value = (*product_sub_version)["items"]["disk1.img"]["sha256"];
+    return true;
 }
 
 std::string SimpleStreamInfo::GetLatestLTSRelease() const
