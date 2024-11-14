@@ -27,9 +27,12 @@ The program is run with CLI
 ```
 ./SimpleStreamInfoFetcher --LTS
 ```
+* lts version are detrmined by if the release title contains LTS
+
 - To get the sha256 of an image run:
 ```
 ./SimpleStreamInfoFetcher -sha <version_name> <sub_version>
 ```
 version name is the key of the product array in the jason file, e.g. com.ubuntu.cloud:server:17.04:amd64. sub version is a version key of the same product e.g. 20171208.
-* will only fetch amd64 images.
+
+* the program will only fetch amd64 images so all results are only for this arch.
